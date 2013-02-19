@@ -11,10 +11,10 @@ function sendelasticemail($to,$subject,$body_t,$body_h,$from,$fromname)
 $data.="&body_html=".urlencode($body_h);
 if($body_t)
 $data.="&body_text=".urlencode($body_t);
-$header="POST/mailer/send HTTP/1.0\r\n";
+$header="POST/mailer/send HTTP/1.1\r\n";
 $header.="Content-Type:application/x-www-form-urlencoded\r\n";
 $header.="Content-Length: ".strlen($data)."\r\n\r\n";
-$fp=fsockopen('ssl://api.elasticemail.com',443,$errno,$errstr,30);
+$fp=fsockopen('ssl://api.elasticemail.com',400,$errno,$errstr,30);
 if(!$fp)
 return "Sorry failed to connect";
 else{
