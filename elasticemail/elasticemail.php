@@ -1,7 +1,7 @@
 <?php
 function sendelasticemail($to,$subject,$body_t,$body_h,$from,$fromname)
  {  $res="";  
- $data="vibhutiwari321@gmail=".urlencode("vibhutiwari321@gmail.com");
+ $data="username=".urlencode("vibhutiwari321@gmail.com");
     $data.="&api_key=".urlencode("ae0d2070-ee37-4f31-a077-1266c909ea47");
     $data.="&from=".urlencode($from);
    $data.="&from_name=".urlencode($fromname);
@@ -28,7 +28,3 @@ return $res;
 }
 echo sendelasticemail("vibhutiwari321@gmail.com","Regarding email","hello","<h1>Regarding email</h1><title>hello</title>","vibhutiwari321@gmail.com","vibhu tiwari");
 ?>
-But the big problem is that when you direct yourself to the url ssl://api.elasticemail.com
-or if you try to direct to the other url which is mentioned in the documentation that is
-https://api.elasticemail.com/mailer/send then both times it displays the message unauthorized
-and thus when this code is run on localhost then it says sorry unable to connect.
