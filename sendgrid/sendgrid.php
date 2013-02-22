@@ -8,12 +8,16 @@ $to=$_REQUEST['to'];
 $subject=$_REQUEST['subject'];
 $attach=$_FILES['file']['tmp_name'];
 $email=$_REQUEST['mr'];
+$name=$_REQUEST['nm'];
+$name1=explode(",",$name);
 $emails=explode(",",$email);
-$mail->setFrom($email1)->addTo($to)->setSubject($subject)->setText($message)->addAttachment($attach);
+$mail->setFrom($email1)->setSubject($subject)->setText($message)->addAttachment($attach);
 foreach($emails as $value)
 { $mail->addTo($value);
-   $name=explode("@",$value);
-   $mail->setHtml("Hey %name% how are you")->addSubstitution("%name%",$name);
 }
-echo $sendgrid->web->send($mail);
+foreach($name1 as $name2){
+$msg="Hello ".$name2." how are you";
+$mail->setHtml($msg);
+}
+echo $sendgrid->smtp->send($mail);
 ?>
