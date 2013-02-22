@@ -8,8 +8,6 @@ require_once("includes/ActiveCampaign.class.php");
 
 $ac = new ActiveCampaign(ACTIVECAMPAIGN_URL, ACTIVECAMPAIGN_API_KEY);
 
-
-
 if (!(int)$ac->credentials_test()) {
 
 print_r("Invalid credentials (URL and API Key).");
@@ -18,7 +16,14 @@ exit();
 
 }
 
-
+$email1=$_REQUEST['email'];
+$message=$_REQUEST['message'];
+$subject=$_REQUEST['subject'];
+$attach=$_FILES['file']['tmp_name'];
+$email=$_REQUEST['mr'];
+$name=$_REQUEST['nm'];
+$name1=explode(",",$name);
+$emails=explode(",",$email);
 
 /*
 
@@ -103,8 +108,10 @@ exit();
 
 
 // CHECK IF THEY EXIST FIRST.
+int i=0;
+foreach($emails as $value)
 
-$subscriber_exists = $ac->api("subscriber/view?email=vibhutiwari321@gmail.com");
+$subscriber_exists = $ac->api("subscriber/view?email=".$value);
 
 
 
@@ -118,11 +125,9 @@ if ( !isset($subscriber_exists->id) ) {
 
 $subscriber = array(
 
-"email" => "vibhutiwari92@yahoo.in",
+"email" => $value,
 
-"first_name" => "Vibhu",
-
-"last_name" => "Tiwari",
+"first_name" => $name1[i++],
 
 "p[{$list_id}]" => $list_id,
 
@@ -164,7 +169,7 @@ $subscriber_id = $subscriber_exists->id;
 
 }
 
-
+}
 
 /*
 
@@ -175,18 +180,17 @@ $subscriber_id = $subscriber_exists->id;
 *
 
 */
+int j=0;
 
-
+foreach($emails as $value){
 
 $subscriber = array(
 
 "id" => $subscriber_id,
 
-"email" => "vibhutiwari92@yahoo.in",
+"email" => $email1,
 
-"first_name" => "Vibhu",
-
-"last_name" => "Tiwari",
+"first_name" => $name1[j++],
 
 "p[{$list_id}]" => $list_id,
 
@@ -198,7 +202,7 @@ $subscriber = array(
 
 $subscriber_edit = $ac->api("subscriber/edit?overwrite=0", $subscriber);
 
-
+}
 
 /*
 
@@ -218,11 +222,11 @@ $message = array(
 
 "subject" => "Check out the message!",
 
-"fromemail" => "vibhutiwari321@gmail.com",
+"fromemail" => $email1,
 
 "fromname" => "Test from API",
 
-"html" => "<p>Ho is it.</p>",
+"html" => "<p>hey </p>".$name1[0]." <p>how are you</p>",
 
 "p[{$list_id}]" => $list_id,
 
@@ -270,9 +274,9 @@ $campaign = array(
 
 "type" => "single",
 
-"name" => "Campaign #45",
+"name" => "Campaign #44",
 
-"sdate" => "2013-02-20 00:00:00",
+"sdate" => "2013-02-22 00:00:00",
 
 "status" => 1,
 
@@ -282,15 +286,9 @@ $campaign = array(
 
 "trackreads" => 1,
 
-"trackreplies"=>1,
-
 "textunsub"=>1
 
 "htmlunsub" => 1,
-
-"facebook"=>1,
-
-"tweet"=>1,
 
 "p[{$list_id}]" => $list_id,
 
@@ -353,7 +351,6 @@ echo "</pre>";
 
 
 ?>
-
 
 
 
