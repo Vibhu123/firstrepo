@@ -5,7 +5,7 @@ $sendgrid = new SendGrid('anmolgagneja','30086269');
 
 $mail = new SendGrid\Mail();
 
-$mail->setFrom('vibhutiwari321@gmail.com')->
+$mail->setFrom('email@saliraganar.com')->
 
 setSubject("Heyy")->
 
