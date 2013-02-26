@@ -1,51 +1,39 @@
 <?php
+
 include '/var/www/sendgrid-php/SendGrid_loader.php';
+
+function sendmail($from,$subject,$text,$recp){
 
 $sendgrid = new SendGrid('anmolgagneja','30086269');
 
 $mail = new SendGrid\Mail();
 
-$mail->setFrom('email@saliraganar.com')->
+$mail->setFrom($from)->
 
-setSubject("Heyy")->
+setSubject($subject)->
 
-setText("Hi!!!!")->
+setText($text)->
 
-addTo('vibhutiwari321@gmail.com')->
-
-addTo('vibhutiwari92@yahoo.in')->
-
-addTo('vibhu@gmail.com')->
-
-addUniqueArgument('customer','somewhere')->
+setTos($recp)->
 
 setHtml("Hello %name% this is our first email")->
 
 addSubstitution("%name%",array("vibhu","vibhu"))->
 
-addFilterSetting("gravatar","enable",1)->
-
-addFilterSetting("clicktrack","enable",1)->
-
 addFilterSetting("footer","enable",1)->
 
 addFilterSetting("subscriptiontrack","enable",1)->
 
-addFilterSetting("subscriptiontrack","text/html","<%Unsubscribe Here%>")->
+addFilterSetting("subscriptiontrack","text/html","Unsubscribe <%Here%>")->
 
-addFilterSetting("opentrack","enable",1)->
+addFilterSetting("clicktrack","enable",1)->
 
-addFilterSetting("spamcheck","enable",1)->
+addFilterSetting("opentrack","enable",1);
 
-addFilterSetting("spamcheck","maxscore",5)->
+return $sendgrid->web->send($mail);
 
-addFilterSetting("template","enable",1)->
+}
 
-addFilterSetting("template","text/html","How are you")->
+echo sendmail('email@saliraganar.com','regarding first mail','hey',array('vibhutiwari321@gmail.com','vibhutiwari92@yahoo.in'));
 
-addFilterSetting("dkim","use_from",1)->
-
-addFilterSetting("bypass_list_management","enable",1);
-
-echo $sendgrid->smtp->send($mail);
 ?>
