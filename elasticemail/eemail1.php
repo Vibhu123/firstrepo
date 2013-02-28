@@ -14,7 +14,7 @@ $text = 'Hello {Title} {LastName}, your first name is {FirstName}.';
 
 $html='<body>Unsubscribe <a href="{unsubscribe}">Here</a></body>';
 
-$res = $ee->mailMerge($csv, "vibhutiwari321@gmail.com", "Demo", "Demo Mail Merge",$text,$html);
+$res = $ee->mailMerge($csv, "email@saliraganar.com", "Demo", "Demo Mail Merge",$text,$html);
 
 echo $res;
 
